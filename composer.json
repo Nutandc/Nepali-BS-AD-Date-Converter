@@ -1,0 +1,52 @@
+{
+    "name": "nutandc/nepali-date-converter",
+    "version": "1.0.0",
+    "type": "library",
+    "description": "Nepali Date Converter (BS <-> AD) for Nepal-first date conversion.",
+    "license": "MIT",
+    "homepage": "https://github.com/Nutandc/Nepali-BS-AD-Date-Converter",
+    "keywords": [
+        "Nepal",
+        "Nepali",
+        "Date",
+        "Converter",
+        "BS",
+        "AD",
+        "Bikram Sambat"
+    ],
+    "autoload": {
+        "psr-4": {
+            "Nutandc\\NepaliDateConverter\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Nutan Dahal",
+            "email": "info@dahalnutan.com.np"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "illuminate/support": "^10.0|^11.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.0"
+    },
+    "scripts": {
+        "test": "phpunit"
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Nutandc\\NepaliDateConverter\\Providers\\NepaliDateConverterServiceProvider"
+            ]
+        }
+    }
+}

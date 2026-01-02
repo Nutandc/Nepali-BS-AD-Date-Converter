@@ -1,44 +1,77 @@
-# Convert English date to nepali
-This is the helper class to convert every English  dates to Nepali
+# Nepali BS-AD Date Converter
 
-Copy this file to namespace **App\Http\Services**:
+A lightweight PHP package to convert Nepali Bikram Sambat (BS) dates to Gregorian (AD) and vice versa.
 
+## Requirements
 
-## Uses
-#### Currently, can only calculate the date between BS 2000-2089.
-This package can convert english date to nepali date.
+- PHP 8.2+
+- Laravel 10+ (optional, for container binding)
 
 ## Installation
 
+```bash
+composer require nutandc/nepali-date-converter
+```
 
 ## Usage
 
-``` php
-$date = new \App\Services\DateConverter();
-$nep_date =  $date->create(Carbon::create('2022-9-8'))->toFormattedBSDate();
+```php
+use Nutandc\NepaliDateConverter\DateConverter;
 
-$nepaliDate = $date->fromEnglishDate(2020, 10, 4)->toNepaliDate();
-//Output: 2077-6-18
+$converter = new DateConverter();
 
-$nepaliDate = $date->fromEnglishDate(2020, 10, 4)->toFormattedNepaliDate();
-//Output: २०७७ असोज १८, आइतवार
+// AD to BS
+$bs = $converter->toNepali(2020, 10, 4);
 
-$nepaliDate = $date->fromEnglishDate(2020, 10, 4)->toNepaliDateArray();
-//Output:
-[
-    'year' => 2077,
-    'month' => 6,
-    'day' => 18,
-    'day_of_week' => 1,
-]
+$bs->toDateString();
+// 2077-06-18
 
-$nepaliDate = $date->fromEnglishDate(2020, 10, 4)->toFormattedNepaliDateArray();
-//Output:
-[
-    'year' => '२०७७',
-    'month' => 'असोज',
-    'day' => '१८',
-    'day_of_week' => 'आइतवार',
-]
+$bs->toFormattedEnglish();
+// 18 Ashoj 2077, Sunday
+
+$bs->toFormattedNepali();
+// २०७७ असोज १८, आइतवार
+
+$bs->toArray();
+// ['year' => 2077, 'month' => 6, 'day' => 18, 'day_of_week' => 1]
+
+$bs->toFormattedArray();
+// ['year' => '२०७७', 'month' => 'असोज', 'day' => '१८', 'day_of_week' => 'आइतवार']
+
+// AD to BS using DateTime/Carbon
+$bs = $converter->toNepaliFromDateTime(new DateTimeImmutable('2022-09-08'));
+
+// BS to AD
+$ad = $converter->toEnglish(2077, 6, 18);
+
+$ad->toDateString();
+// 2020-10-04
+
+$ad->toFormattedEnglish();
+// October 4, 2020
 ```
 
+## Helpers
+
+```php
+$converter->daysInNepaliMonth(2077, 6); // 30
+$converter->daysInEnglishMonth(2020, 2); // 29
+```
+
+## Laravel 10+ Usage
+
+```php
+use Nutandc\NepaliDateConverter\DateConverter;
+
+$converter = app(DateConverter::class);
+$bs = $converter->toNepali(2020, 10, 4);
+```
+
+## Supported Range
+
+- AD: 1944 - 2033
+- BS: 2000 - 2090
+
+## License
+
+MIT
