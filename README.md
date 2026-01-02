@@ -17,6 +17,8 @@ composer require nutandc/nepali-date-converter
 
 ```php
 use Nutandc\NepaliDateConverter\DateConverter;
+use Nutandc\NepaliDateConverter\Enums\EnglishDateFormat;
+use Nutandc\NepaliDateConverter\Enums\NepaliDateFormat;
 
 $converter = new DateConverter();
 
@@ -56,6 +58,16 @@ $ad->toFormattedEnglish();
 ```php
 $converter->daysInNepaliMonth(2077, 6); // 30
 $converter->daysInEnglishMonth(2020, 2); // 29
+```
+
+## Formatting
+
+```php
+$bs->format(NepaliDateFormat::DateString); // 2077-06-18
+$bs->format(NepaliDateFormat::FormattedNepali); // २०७७ असोज १८, आइतवार
+
+$ad->format(EnglishDateFormat::DateString); // 2020-10-04
+$ad->format(EnglishDateFormat::FormattedEnglish); // October 4, 2020
 ```
 
 ## Laravel 10+ Usage

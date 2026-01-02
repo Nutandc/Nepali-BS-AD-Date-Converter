@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Nutandc\NepaliDateConverter\ValueObjects;
 
+use Nutandc\NepaliDateConverter\Enums\NepaliDateFormat;
+
 final class NepaliDate
 {
     private const MONTHS_EN = [
@@ -74,11 +76,26 @@ final class NepaliDate
         public readonly int $month,
         public readonly int $day,
         public readonly int $dayOfWeek,
-    ) {}
+    ) {
+    }
 
     public function toDateString(): string
     {
         return sprintf('%04d-%02d-%02d', $this->year, $this->month, $this->day);
+    }
+
+    /**
+     * @return array{year:int, month:int, day:int, day_of_week:int}|array{year:string, month:string, day:string, day_of_week:string}|string
+     */
+    public function format(NepaliDateFormat $format): array|string
+    {
+        return match ($format) {
+            NepaliDateFormat::DateString => $this->toDateString(),
+            NepaliDateFormat::FormattedEnglish => $this->toFormattedEnglish(),
+            NepaliDateFormat::FormattedNepali => $this->toFormattedNepali(),
+            NepaliDateFormat::Array => $this->toArray(),
+            NepaliDateFormat::FormattedArray => $this->toFormattedArray(),
+        };
     }
 
     /**

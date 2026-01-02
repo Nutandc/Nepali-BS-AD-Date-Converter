@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Tests;
 
 use Nutandc\NepaliDateConverter\DateConverter;
+use Nutandc\NepaliDateConverter\Enums\EnglishDateFormat;
+use Nutandc\NepaliDateConverter\Enums\NepaliDateFormat;
 use Nutandc\NepaliDateConverter\Exceptions\InvalidDateException;
 use PHPUnit\Framework\TestCase;
 
@@ -17,6 +19,8 @@ final class DateConverterTest extends TestCase
 
         $this->assertSame('2077-06-18', $bs->toDateString());
         $this->assertSame('18 Ashoj 2077, Sunday', $bs->toFormattedEnglish());
+        $this->assertSame('2077-06-18', $bs->format(NepaliDateFormat::DateString));
+        $this->assertSame('२०७७ असोज १८, आइतवार', $bs->format(NepaliDateFormat::FormattedNepali));
     }
 
     public function test_converts_bs_to_ad(): void
@@ -26,6 +30,8 @@ final class DateConverterTest extends TestCase
 
         $this->assertSame('2020-10-04', $ad->toDateString());
         $this->assertSame('October 4, 2020', $ad->toFormattedEnglish());
+        $this->assertSame('2020-10-04', $ad->format(EnglishDateFormat::DateString));
+        $this->assertSame('October 4, 2020', $ad->format(EnglishDateFormat::FormattedEnglish));
     }
 
     public function test_invalid_english_date_throws(): void
@@ -50,6 +56,22 @@ final class DateConverterTest extends TestCase
 
         $this->assertSame(29, $converter->daysInEnglishMonth(2020, 2));
         $this->assertSame(30, $converter->daysInNepaliMonth(2077, 6));
+    }
+
+    public function test_format_arrays(): void
+    {
+        $converter = new DateConverter();
+        $bs = $converter->toNepali(2020, 10, 4);
+        $ad = $converter->toEnglish(2077, 6, 18);
+
+        $this->assertSame(
+            ['year' => 2077, 'month' => 6, 'day' => 18, 'day_of_week' => 1],
+            $bs->format(NepaliDateFormat::Array),
+        );
+        $this->assertSame(
+            ['year' => 2020, 'month' => 10, 'day' => 4, 'day_of_week' => 1],
+            $ad->format(EnglishDateFormat::Array),
+        );
     }
 
     public function test_round_trip_ad_to_bs_to_ad(): void
