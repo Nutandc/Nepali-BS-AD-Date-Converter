@@ -1,6 +1,5 @@
 {
     "name": "nutandc/nepali-date-converter",
-    "version": "1.1.0",
     "type": "library",
     "description": "Nepali Date Converter (BS <-> AD) for Nepal-first date conversion.",
     "license": "MIT",
