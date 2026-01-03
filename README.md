@@ -1,5 +1,10 @@
 # Nepali BS-AD Date Converter
 
+[![CI](https://github.com/Nutandc/Nepali-BS-AD-Date-Converter/actions/workflows/ci.yml/badge.svg)](https://github.com/Nutandc/Nepali-BS-AD-Date-Converter/actions/workflows/ci.yml)
+[![Latest Version](https://poser.pugx.org/nutandc/nepali-date-converter/version)](https://packagist.org/packages/nutandc/nepali-date-converter)
+[![Total Downloads](https://poser.pugx.org/nutandc/nepali-date-converter/d/total)](https://packagist.org/packages/nutandc/nepali-date-converter)
+[![License](https://poser.pugx.org/nutandc/nepali-date-converter/license)](LICENSE)
+
 A lightweight PHP package to convert Nepali Bikram Sambat (BS) dates to Gregorian (AD) and vice versa.
 
 ## Requirements
